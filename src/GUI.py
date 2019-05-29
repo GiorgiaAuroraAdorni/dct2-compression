@@ -64,6 +64,45 @@ class Demo1:
         self.app = Demo2(self.newWindow)
 
 
+class Demo2:
+    def __init__(self, master):
+        self.master = master
+        self.frame = Frame(self.master)
+
+        self.canvas = Canvas(self.master)
+        self.canvas.pack(fill=BOTH, expand=True)
+        self.image = None  # none yet
+
+        ## Load
+        self.load = Image.open(file)
+        w, h = self.load.size
+        self.render = ImageTk.PhotoImage(self.load)  # must keep a reference to this
+
+        # if self.image is not None:  # if an image was already loaded
+        #     self.canvas.delete(self.image)  # remove the previous image
+
+        self.image = self.canvas.create_image((w / 2, h / 2), image=self.render)
+
+        self.master.geometry("%dx%d" % (w, h))
+
+        # self.path = file
+        # #Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object
+        # self.img = ImageTk.PhotoImage(Image.open(self.path))
+        #
+        # #The Label widget is a standard Tkinter widget used to display a text or image on the screen
+        # self.panel = Label(self.frame, image=self.img)
+        #
+        # #The Pack geometry manager packs widgets in rows or columns
+        # self.panel.grid(columnspan=2, padx=15, pady=15)#side="bottom", fill="both", expand="yes")
+
+        self.quitButton = Button(self.frame, text='Quit', width=25, command=self.close_windows)
+        self.quitButton.pack()
+        self.frame.pack()
+
+    def close_windows(self):
+        self.master.destroy()
+
+
 def main():
     window = Tk()
     app = Demo1(window)
