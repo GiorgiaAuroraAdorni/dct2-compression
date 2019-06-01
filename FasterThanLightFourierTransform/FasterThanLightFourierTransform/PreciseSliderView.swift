@@ -11,13 +11,13 @@ import Cocoa
 class PreciseSliderView: NSView {
 
     @IBOutlet weak var slider: NSSlider!
-    @IBOutlet weak var minimumLabel: NSTextField!
-    @IBOutlet weak var maximumLabel: NSTextField!
+    @IBOutlet weak var minLabel: NSTextField!
+    @IBOutlet weak var maxLabel: NSTextField!
     
     @IBOutlet weak var textField: NSTextField!
     @IBOutlet weak var stepper: NSStepper!
     
-    var value: Double = 50 {
+    var value: Double = 0 {
         didSet {
             slider.doubleValue = value
             textField.doubleValue = value
@@ -25,18 +25,32 @@ class PreciseSliderView: NSView {
         }
     }
     
+    var minValue: Double = 0 {
+        didSet {
+            slider.minValue = minValue
+            stepper.minValue = minValue
+            minLabel.doubleValue = minValue
+        }
+    }
     
-    /*
+    var maxValue: Double = 50 {
+        didSet {
+            slider.maxValue = maxValue
+            maxLabel.doubleValue = maxValue
+            stepper.maxValue = maxValue
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let a = self.value
-        self.value = a
+        self.value = (self.value) as Double
+        self.minValue = (self.minValue) as Double
+        self.maxValue = (self.maxValue) as Double
     }
-    */
     
     @IBAction func userDidUpdate(_ sender: NSControl) {
-        self.value = sender.doubleValue
+        self.value = round(sender.doubleValue)
     }
     
     

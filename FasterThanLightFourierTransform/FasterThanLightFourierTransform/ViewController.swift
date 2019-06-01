@@ -13,22 +13,19 @@ class ViewController: NSViewController {
     @IBOutlet weak var originalImageWell: NSImageView!
     @IBOutlet weak var compressedImageWell: NSImageView!
     
+    @IBOutlet weak var windowSlider: PreciseSliderView!
+    @IBOutlet weak var cutOffSlider: PreciseSliderView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
     @IBAction func userDidDropImage(_ sender: NSImageView) {
     }
     
-    @IBAction func openButtonPressed(_ sender: NSButton) {
+    @IBAction func open(_ sender: NSButton) {
         let panel = NSOpenPanel()
         
         panel.allowedFileTypes = [kUTTypeImage as String]
