@@ -10,6 +10,9 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var originalImageWell: NSImageView!
+    @IBOutlet weak var compressedImageWell: NSImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,7 +38,9 @@ class ViewController: NSViewController {
         
         panel.beginSheetModal(for: self.view.window!) { response in
             if response == .OK {
-                
+                let image = NSImage(contentsOf: panel.url!)
+
+                self.originalImageWell.image = image
             }
         }
     }

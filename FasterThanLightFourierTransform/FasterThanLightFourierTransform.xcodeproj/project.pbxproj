@@ -11,6 +11,7 @@
 		C76E326222A2D140004F6D60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76E326122A2D140004F6D60 /* ViewController.swift */; };
 		C76E326422A2D143004F6D60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76E326322A2D143004F6D60 /* Assets.xcassets */; };
 		C76E326722A2D143004F6D60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76E326522A2D143004F6D60 /* Main.storyboard */; };
+		C78AC1F322A2F0FE00D0AEF8 /* PreciseSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78AC1F222A2F0FE00D0AEF8 /* PreciseSliderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		C76E326622A2D143004F6D60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C76E326822A2D143004F6D60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C76E326922A2D143004F6D60 /* FasterThanLightFourierTransform.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FasterThanLightFourierTransform.entitlements; sourceTree = "<group>"; };
+		C78AC1F222A2F0FE00D0AEF8 /* PreciseSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreciseSliderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				C76E325F22A2D140004F6D60 /* AppDelegate.swift */,
 				C76E326122A2D140004F6D60 /* ViewController.swift */,
+				C78AC1F222A2F0FE00D0AEF8 /* PreciseSliderView.swift */,
 				C76E326322A2D143004F6D60 /* Assets.xcassets */,
 				C76E326522A2D143004F6D60 /* Main.storyboard */,
 				C76E326822A2D143004F6D60 /* Info.plist */,
@@ -135,6 +138,7 @@
 			files = (
 				C76E326222A2D140004F6D60 /* ViewController.swift in Sources */,
 				C76E326022A2D140004F6D60 /* AppDelegate.swift in Sources */,
+				C78AC1F322A2F0FE00D0AEF8 /* PreciseSliderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
