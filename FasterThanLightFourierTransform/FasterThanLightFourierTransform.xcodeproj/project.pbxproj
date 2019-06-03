@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		453C8CC222A52BA900AB5A28 /* NSImage+Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C8CC122A52BA900AB5A28 /* NSImage+Python.swift */; };
 		C76E326022A2D140004F6D60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76E325F22A2D140004F6D60 /* AppDelegate.swift */; };
 		C76E326222A2D140004F6D60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76E326122A2D140004F6D60 /* ViewController.swift */; };
 		C76E326422A2D143004F6D60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76E326322A2D143004F6D60 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		453C8CC122A52BA900AB5A28 /* NSImage+Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Python.swift"; sourceTree = "<group>"; };
 		C76E325C22A2D140004F6D60 /* FasterThanLightFourierTransform.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FasterThanLightFourierTransform.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76E325F22A2D140004F6D60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C76E326122A2D140004F6D60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,6 +46,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		453C8CC522A52BC500AB5A28 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				453C8CC122A52BA900AB5A28 /* NSImage+Python.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C76E325322A2D140004F6D60 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +88,7 @@
 		C7BF869B22A3D3C900DF8233 /* Python */ = {
 			isa = PBXGroup;
 			children = (
+				453C8CC522A52BC500AB5A28 /* Extensions */,
 				C7BF869322A3D1EF00DF8233 /* NumpyConversion.swift */,
 				C7BF869422A3D1EF00DF8233 /* Python.swift */,
 				C7BF869622A3D1F000DF8233 /* PythonLibrary.swift */,
@@ -156,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				453C8CC222A52BA900AB5A28 /* NSImage+Python.swift in Sources */,
 				C76E326222A2D140004F6D60 /* ViewController.swift in Sources */,
 				C7BF869922A3D1F000DF8233 /* PythonLibrary+Symbols.swift in Sources */,
 				C76E326022A2D140004F6D60 /* AppDelegate.swift in Sources */,
@@ -302,7 +314,7 @@
 				CODE_SIGN_ENTITLEMENTS = FasterThanLightFourierTransform/FasterThanLightFourierTransform.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 78G9829HW8;
+				DEVELOPMENT_TEAM = 543NL3Y457;
 				INFOPLIST_FILE = FasterThanLightFourierTransform/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -321,7 +333,7 @@
 				CODE_SIGN_ENTITLEMENTS = FasterThanLightFourierTransform/FasterThanLightFourierTransform.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 78G9829HW8;
+				DEVELOPMENT_TEAM = 543NL3Y457;
 				INFOPLIST_FILE = FasterThanLightFourierTransform/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
