@@ -20,6 +20,28 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // Python:
+        //    import numpy as np
+        //    a = np.arange(15).reshape(3, 5)
+        //    b = np.array([6, 7, 8])
+        let np = Python.import("numpy")
+        let a = np.arange(15).reshape(3, 5)
+        let b = np.array([6, 7, 8])
+        
+        //    // Python:
+        //    //    import gzip as gzip
+        //    //    import pickle as pickle
+        //    let gzip = Python.import("gzip")
+        //    let pickle = Python.import("pickle")
+        //
+        //    // Python:
+        //    //    file = gzip.open("mnist.pkl.gz", "rb")
+        //    //    (images, labels) = pickle.load(file)
+        //    //    print(images.shape) // (50000, 784)
+        //    let file = gzip.open("mnist.pkl.gz", "rb")
+        //    let (images, labels) = pickle.load(file).tuple2
+        //    print(images.shape) // (50000, 784)
+        //
     }
 
     @IBAction func userDidDropImage(_ sender: NSImageView) {
