@@ -27,8 +27,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -38,8 +36,8 @@
             ReferencedContainer = "container:FasterThanLightFourierTransform.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -63,23 +61,11 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "PYTHON_VERSION"
-            value = "3.7"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
             key = "PYTHON_LOADER_LOGGING"
             value = "1"
             isEnabled = "YES">
          </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "PYTHON_LIBRARY"
-            value = "/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/Python"
-            isEnabled = "NO">
-         </EnvironmentVariable>
       </EnvironmentVariables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
