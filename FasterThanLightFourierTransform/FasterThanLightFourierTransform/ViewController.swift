@@ -25,16 +25,9 @@ class ViewController: NSViewController {
     }
 
     @IBAction func userDidDropImage(_ sender: NSImageView) {
-        py.main()
+        let image = sender.image!.makeNumpyArray()
         
-//        DispatchQueue.main.async {
-//            let a = sender.image!.makeNumpyArray()
-//            
-//            let plt = Python.import("matplotlib.pyplot")
-//            
-//            plt.imshow(a)
-//            plt.show()
-//        }
+        py.main(image)
     }
     
     @IBAction func open(_ sender: NSButton) {
