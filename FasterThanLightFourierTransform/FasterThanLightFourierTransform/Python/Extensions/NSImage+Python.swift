@@ -10,7 +10,7 @@ import AppKit
 
 /// The `numpy` Python module.
 /// Note: Global variables are lazy, so the following declaration won't produce
-// a Python import error until it is first used.
+/// a Python import error until it is first used.
 private let np = Python.import("numpy")
 private let ctypes = Python.import("ctypes")
 
@@ -35,10 +35,10 @@ extension NSImage {
         
         let height = bitmapRep.pixelsHigh
         let width = bitmapRep.pixelsWide
-        let channels = bitmapRep.samplesPerPixel
+        let channels = bitmapRep.bitsPerPixel / bitmapRep.bitsPerSample
         
         let bytes = bitmapRep.bitmapData!
-        let shape = [height, width, 4]
+        let shape = [height, width, channels]
         let ctype = ctypes.c_uint8
         
         let data = ctypes.cast(Int(bitPattern: bytes), ctypes.POINTER(ctype))

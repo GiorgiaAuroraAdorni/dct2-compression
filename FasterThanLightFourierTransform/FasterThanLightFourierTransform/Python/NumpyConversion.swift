@@ -16,7 +16,7 @@
 //===----------------------------------------------------------------------===//
 /// The `numpy` Python module.
 /// Note: Global variables are lazy, so the following declaration won't produce
-// a Python import error until it is first used.
+/// a Python import error until it is first used.
 private let np = Python.import("numpy")
 private let ctypes = Python.import("ctypes")
 
