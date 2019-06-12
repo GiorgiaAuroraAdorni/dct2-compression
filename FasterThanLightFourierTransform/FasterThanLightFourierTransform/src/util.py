@@ -34,7 +34,7 @@ def blockshaped(arr, n):
     assert h % n == 0, "{} rows is not evenly divisble by {}".format(h, n)
     assert w % n == 0, "{} cols is not evenly divisble by {}".format(w, n)
     return (arr.reshape(h//n, n, -1, n)
-               .swapaxes(1,2)
+               .swapaxes(1, 2)
                .reshape(-1, n, n))
 
 
@@ -48,16 +48,10 @@ def unblockshaped(arr, h, w):
     """
     n, nrows, ncols = arr.shape
     return (arr.reshape(h//nrows, -1, nrows, ncols)
-               .swapaxes(1,2)
+               .swapaxes(1, 2)
                .reshape(h, w))
 
-
-# Functions to go from image to frequency-image and back
-
-im2freq = lambda data: fp.rfft(fp.rfft(data, axis=0), axis=1)
-freq2im = lambda f: fp.irfft(fp.irfft(f, axis=1), axis=0)
-
-###############
+##########################
 
 wd_path = "/Users/Giorgia/FtlFT"
 
@@ -66,33 +60,24 @@ outfile = wd_path + "/images/freq.png"
 
 img = Image.open(filename).convert('L')
 windowsize = 8 # not work if not a divisor of the original shape
-threshold = 4
-
-# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
-# plt.show()
+threshold = 2
 
 data = load_image(img)
-
-# freq = im2freq(data)
-# back = freq2im(freq)
-
-# # Make sure the forward and backward transforms work!
-# assert(np.allclose(data, back))
 
 shaped = blockshaped(data, windowsize)
 
 iterator = int(len(data) / windowsize)
 
-result_array = np.array([])
+result_array = np.zeros((shaped.shape))
 list_result = []
 
-for i in range(iterator):
+for i in range(shaped.shape[0]):
     # discrete cosine transform
     c = dctn(shaped[i], type=2, norm='ortho')
 
-    # compression
     (blockRows, blockCols) = shaped[i].shape
 
+    # compression
     for j in range(0, blockRows - 1):
         for k in range(0, blockCols - 1):
             if j + k >= threshold:
@@ -110,26 +95,16 @@ for i in range(iterator):
             ff[index] = 255
 
     list_result.append(ff)
-    # np.vstack([result_array, ff])
-    # result_array = result_array.append([ff])
-    if result_array.size == 0:
-        result_array = np.array([ff])
-    # else:
-        # result_array = np.append(result_array, ff, axis=0)
+    result_array[i] = ff
 
-# result_array = np.array([result_array])
-# final = unblockshaped(result_array, data.shape[0], data.shape[1])
-#
-# print(shaped[1])
-# print("\n \n okk \n \n")
-# print(shaped)
-#
-# print("\n \n okk \n \n")
-#
+final = unblockshaped(result_array, data.shape[0], data.shape[1])
 
-print(result_array)
+plt.subplot(1, 2, 1)
+plt.imshow(img, cmap='gray', vmin=0, vmax=255)
 
-plt.imshow(result_array, cmap='gray', vmin=0, vmax=255)
+plt.subplot(1, 2, 2)
+plt.imshow(final, cmap='gray', vmin=0, vmax=255)
+
 plt.show()
 
 
