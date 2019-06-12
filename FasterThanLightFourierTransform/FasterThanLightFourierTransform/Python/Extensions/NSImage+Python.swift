@@ -15,6 +15,27 @@ private let np = Python.import("numpy")
 private let ctypes = Python.import("ctypes")
 
 extension NSImage {
+    /// Creates an `NSImage` with the same shape and scalars as the specified
+    /// `numpy.ndarray` instance.
+    ///
+    /// - Parameter numpyArray: The `numpy.ndarray` instance to convert.
+    /// - Precondition: The `numpy` Python package must be installed.
+    /// - Returns: `numpyArray` converted to an `NSImage`. Returns `nil` if
+    ///   `numpyArray` does not have a compatible scalar `dtype`.
+    convenience init?(numpy numpyArray: PythonObject) {
+        // Check if input is a `numpy.ndarray` instance.
+        guard Python.isinstance(numpyArray, np.ndarray) == true else {
+            return nil
+        }
+        
+        // Check if the dtype of the `ndarray` is compatible with the type.
+        guard numpyArray.dtype == ctypes.c_uint8 else {
+            return nil
+        }
+        
+        // TODO
+        return nil
+    }
     
     /// Creates a `numpy.ndarray` instance with the bitmap of this `NSImage`.
     ///
