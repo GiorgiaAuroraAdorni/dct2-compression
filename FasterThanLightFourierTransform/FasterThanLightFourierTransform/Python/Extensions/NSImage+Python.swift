@@ -41,6 +41,7 @@ extension NSImage {
             byteOrder = .order16Little
             
         default:
+            print("Unsupported dtype: \(numpyArray.dtype)")
             return nil
         }
         
@@ -72,7 +73,7 @@ extension NSImage {
         let bitsPerPixel = bitsPerSample * channels
         let bytesPerRow = (bitsPerPixel / 8) * width
         
-        let colorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
+        let colorSpace = (channels == 1) ? CGColorSpace(name: CGColorSpace.genericGrayGamma2_2)! : CGColorSpace(name: CGColorSpace.sRGB)!
         let alphaInfo: CGImageAlphaInfo = (channels == 4) ? .last : .none
         let intent = CGColorRenderingIntent.defaultIntent
         

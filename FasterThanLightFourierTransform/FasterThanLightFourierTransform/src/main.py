@@ -5,7 +5,8 @@ from scipy.fftpack import dctn, idctn
 
 
 def compress_image(image, window, cutoff):
-    shaped = util.blockshaped(image, window)
+    gray = util.im2gray(image)
+    shaped = util.blockshaped(gray, window)
 
     result_array = np.zeros((shaped.shape))
 

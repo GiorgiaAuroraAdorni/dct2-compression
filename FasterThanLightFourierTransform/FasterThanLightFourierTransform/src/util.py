@@ -1,6 +1,14 @@
 import numpy as np
-from scipy.fftpack import dctn, idctn
 
+
+def im2gray(image):
+    if len(image.shape) == 3 and image.shape[2] in [3, 4]:
+        out = 0.2126 * image[:, :, 0] + 0.7152 * image[:, :, 1] + 0.0722 * image[:, :, 2]
+        
+        return out.astype(image.dtype)
+    else:
+        return image
+    
 
 def blockshaped(arr, n):
     """
