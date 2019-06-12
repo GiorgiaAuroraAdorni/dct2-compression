@@ -1,6 +1,4 @@
-from matplotlib import pyplot as plt
+import numpy as np
 
-
-def main(im):
-    plt.imshow(im)
-    plt.show()
+def compress_image(image, window, cutoff):
+    return image
