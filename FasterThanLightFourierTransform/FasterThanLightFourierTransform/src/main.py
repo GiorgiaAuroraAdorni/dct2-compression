@@ -8,7 +8,7 @@ def compress_image(image, window, cutoff):
     gray = util.im2gray(image)
     shaped = util.blockshaped(gray, window)
 
-    result_array = np.zeros((shaped.shape))
+    result_array = np.zeros((shaped.shape), dtype=image.dtype)
 
     for i in range(shaped.shape[0]):
         # discrete cosine transform
