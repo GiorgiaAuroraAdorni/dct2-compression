@@ -1,18 +1,5 @@
-from PIL import Image
 import numpy as np
-from matplotlib import pyplot as plt
 from scipy.fftpack import dctn, idctn
-
-
-def load_image(img):
-    img.load()
-    data = np.array(img, dtype="int32")
-    return data
-
-
-def save_image(npdata, outfilename):
-    img = Image.fromarray(np.asarray(np.clip(npdata, 0, 255), dtype="uint8"), "L")
-    img.save(outfilename)
 
 
 def blockshaped(arr, n):
@@ -45,7 +32,7 @@ def unblockshaped(arr, h, w):
                .reshape(h, w))
 
 
-def compression(c):
+def compression(c, threshold):
     (blockRows, blockCols) = c.shape
 
     for j in range(0, blockRows - 1):
@@ -54,47 +41,3 @@ def compression(c):
                 c[j, k] = 0
 
     return c
-
-##########################
-
-wd_path = "/Users/Giorgia/FtlFT"
-
-filename = wd_path + "/images/barbara.bmp"
-outfile = wd_path + "/images/freq.png"
-
-img = Image.open(filename).convert('L')
-windowsize = 8 # not work if not a divisor of the original shape
-threshold = 2
-
-data = load_image(img)
-
-shaped = blockshaped(data, windowsize)
-
-result_array = np.zeros((shaped.shape))
-
-for i in range(shaped.shape[0]):
-    # discrete cosine transform
-    c = dctn(shaped[i], type=2, norm='ortho')
-
-    compressed = compression(c)
-
-    # inverse discrete cosine transform
-    ff = idctn(compressed, type=2, norm='ortho')
-
-    # normalize idct
-    normalized_ff = np.clip(ff, 0, 255)
-
-    result_array[i] = ff
-
-final = unblockshaped(result_array, data.shape[0], data.shape[1])
-
-plt.subplot(1, 2, 1)
-plt.imshow(img, cmap='gray', vmin=0, vmax=255)
-
-plt.subplot(1, 2, 2)
-plt.imshow(final, cmap='gray', vmin=0, vmax=255)
-
-plt.show()
-
-
-
