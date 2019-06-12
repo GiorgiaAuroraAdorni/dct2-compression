@@ -19,9 +19,9 @@ def compress_image(image, window, cutoff):
         ff = idctn(compressed, type=2, norm='ortho')
 
         # normalize idct
-        normalized_ff = np.clip(ff, 0, 255)
+        normalized = np.clip(ff, 0, 255)
 
-        result_array[i] = ff
+        result_array[i] = normalized
 
     final = util.unblockshaped(result_array, image.shape[0], image.shape[1])
 
