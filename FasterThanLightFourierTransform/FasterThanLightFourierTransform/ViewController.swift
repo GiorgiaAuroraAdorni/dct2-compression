@@ -24,6 +24,10 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func userDidUpdateParameters(_ sender: Any) {
+        self.updateCompressedImage()
+    }
+    
     @IBAction func userDidDropImage(_ sender: NSImageView) {
         self.updateCompressedImage()
     }
@@ -51,10 +55,11 @@ class ViewController: NSViewController {
             return
         }
         
+        let imageArray = image.makeNumpyArray()
         let window = self.windowSlider.value
         let cutoff = self.cutOffSlider.value
         
-        let compressed = py.compress_image(image.makeNumpyArray(), window: window, cutoff: cutoff)
+        let compressed = py.compress_image(imageArray, window: window, cutoff: cutoff)
         
         self.compressedImageWell.image = NSImage(numpy: compressed)
     }

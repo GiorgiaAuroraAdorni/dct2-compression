@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PreciseSliderView: NSView {
+class PreciseSliderView: NSControl {
 
     @IBOutlet weak var slider: NSSlider!
     @IBOutlet weak var minLabel: NSTextField!
@@ -51,6 +51,8 @@ class PreciseSliderView: NSView {
     
     @IBAction func userDidUpdate(_ sender: NSControl) {
         self.value = round(sender.doubleValue)
+        
+        self.sendAction(self.action, to: self.target)
     }
     
     

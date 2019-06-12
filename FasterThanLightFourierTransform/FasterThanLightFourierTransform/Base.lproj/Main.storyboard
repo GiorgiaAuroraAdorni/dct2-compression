@@ -718,7 +718,7 @@
                                         <subviews>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LFK-Mn-tyA">
                                                 <rect key="frame" x="193" y="13" width="222" height="24"/>
-                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="ihS-n0-74a"/>
+                                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="10" sliderType="linear" id="ihS-n0-74a"/>
                                                 <connections>
                                                     <action selector="userDidUpdate:" target="xEN-G9-yIu" id="PD2-x3-WlY"/>
                                                 </connections>
@@ -791,6 +791,7 @@
                                             <constraint firstItem="Wza-zq-zPO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xEN-G9-yIu" secondAttribute="top" id="xuh-u5-9eM"/>
                                         </constraints>
                                         <connections>
+                                            <action selector="userDidUpdateParameters:" target="XfG-lQ-9wD" id="WQR-cG-NPf"/>
                                             <outlet property="maxLabel" destination="MPm-z5-RBo" id="z1A-bT-0PD"/>
                                             <outlet property="minLabel" destination="psh-rq-JuH" id="a56-vR-ndH"/>
                                             <outlet property="slider" destination="LFK-Mn-tyA" id="1lX-0p-t15"/>
@@ -803,7 +804,7 @@
                                         <subviews>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qvg-Qh-9Sl">
                                                 <rect key="frame" x="193" y="13" width="222" height="24"/>
-                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="Iic-Ag-Gzx"/>
+                                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="10" sliderType="linear" id="Iic-Ag-Gzx"/>
                                                 <connections>
                                                     <action selector="userDidUpdate:" target="cK3-oD-uan" id="Nn4-Ty-MV1"/>
                                                 </connections>
@@ -876,6 +877,7 @@
                                             <constraint firstItem="YVH-Co-US2" firstAttribute="centerX" secondItem="Qvg-Qh-9Sl" secondAttribute="leading" constant="8" id="z8K-jZ-nUJ"/>
                                         </constraints>
                                         <connections>
+                                            <action selector="userDidUpdateParameters:" target="XfG-lQ-9wD" id="lIY-Ub-APv"/>
                                             <outlet property="maxLabel" destination="dvp-R1-hQI" id="aJk-Vl-cgE"/>
                                             <outlet property="minLabel" destination="YVH-Co-US2" id="zkX-g6-F6d"/>
                                             <outlet property="slider" destination="Qvg-Qh-9Sl" id="n3l-N0-mzx"/>
