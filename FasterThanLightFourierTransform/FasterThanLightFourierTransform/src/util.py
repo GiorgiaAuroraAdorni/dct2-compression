@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-import scipy.fftpack as fp
 from matplotlib import pyplot as plt
 from scipy.fftpack import dctn, idctn
 
@@ -56,18 +55,6 @@ def compression(c):
 
     return c
 
-
-def normalize(idct):
-    idct = np.round(idct)
-
-    for index, value in np.ndenumerate(idct):
-        if value < 0:
-            idct[index] = 0
-        elif value > 255:
-            idct[index] = 255
-
-    return idct
-
 ##########################
 
 wd_path = "/Users/Giorgia/FtlFT"
@@ -95,7 +82,7 @@ for i in range(shaped.shape[0]):
     ff = idctn(compressed, type=2, norm='ortho')
 
     # normalize idct
-    normalized_ff = normalize(ff)
+    normalized_ff = np.clip(ff, 0, 255)
 
     result_array[i] = ff
 
