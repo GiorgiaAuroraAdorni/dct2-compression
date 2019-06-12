@@ -16,12 +16,6 @@ def save_image(npdata, outfilename):
     img.save(outfilename)
 
 
-def arr2im(data, fname):
-    out = Image.new('RGB', data.shape[1::-1])
-    out.putdata(map(tuple, data.reshape(-1, 3)))
-    out.save(fname)
-
-
 def blockshaped(arr, n):
     """
     Return an array of shape (n, nrows, ncols) where
@@ -51,6 +45,29 @@ def unblockshaped(arr, h, w):
                .swapaxes(1, 2)
                .reshape(h, w))
 
+
+def compression(c):
+    (blockRows, blockCols) = c.shape
+
+    for j in range(0, blockRows - 1):
+        for k in range(0, blockCols - 1):
+            if j + k >= threshold:
+                c[j, k] = 0
+
+    return c
+
+
+def normalize(idct):
+    idct = np.round(idct)
+
+    for index, value in np.ndenumerate(idct):
+        if value < 0:
+            idct[index] = 0
+        elif value > 255:
+            idct[index] = 255
+
+    return idct
+
 ##########################
 
 wd_path = "/Users/Giorgia/FtlFT"
@@ -66,35 +83,20 @@ data = load_image(img)
 
 shaped = blockshaped(data, windowsize)
 
-iterator = int(len(data) / windowsize)
-
 result_array = np.zeros((shaped.shape))
-list_result = []
 
 for i in range(shaped.shape[0]):
     # discrete cosine transform
     c = dctn(shaped[i], type=2, norm='ortho')
 
-    (blockRows, blockCols) = shaped[i].shape
-
-    # compression
-    for j in range(0, blockRows - 1):
-        for k in range(0, blockCols - 1):
-            if j + k >= threshold:
-                c[j, k] = 0
+    compressed = compression(c)
 
     # inverse discrete cosine transform
-    ff = idctn(c, type=2, norm='ortho')
+    ff = idctn(compressed, type=2, norm='ortho')
 
     # normalize idct
-    ff = np.round(ff)
-    for index, value in np.ndenumerate(ff):
-        if value < 0:
-            ff[index] = 0
-        elif value > 255:
-            ff[index] = 255
+    normalized_ff = normalize(ff)
 
-    list_result.append(ff)
     result_array[i] = ff
 
 final = unblockshaped(result_array, data.shape[0], data.shape[1])
