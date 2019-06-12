@@ -29,18 +29,90 @@ extension NSImage {
         }
         
         // Check if the dtype of the `ndarray` is compatible with the type.
-        guard numpyArray.dtype == ctypes.c_uint8 else {
+        let bitsPerSample: Int
+        let byteOrder: CGImageByteOrderInfo
+        
+        switch numpyArray.dtype {
+        case ctypes.c_uint8:
+            bitsPerSample = 8
+            byteOrder = .orderDefault
+        case ctypes.c_uint16:
+            bitsPerSample = 16
+            byteOrder = .order16Little
+            
+        default:
             return nil
         }
         
-        // TODO
-        return nil
+        // Extract the shape of the `ndarray`.
+        guard let shape = [Int](numpyArray.shape) else {
+            return nil
+        }
+        
+        let height: Int
+        let width: Int
+        let channels: Int
+        
+        switch shape.count {
+        case 2:
+            height   = shape[0]
+            width    = shape[1]
+            channels = 1
+            
+        case 3:
+            height   = shape[0]
+            width    = shape[1]
+            channels = shape[2]
+            
+        default:
+            return nil
+        }
+        
+        // Compute properties
+        let bitsPerPixel = bitsPerSample * channels
+        let bytesPerRow = (bitsPerPixel / 8) * width
+        
+        let colorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
+        let alphaInfo: CGImageAlphaInfo = (channels == 4) ? .last : .none
+        let intent = CGColorRenderingIntent.defaultIntent
+        
+        let bitmapInfo: CGBitmapInfo = [
+            CGBitmapInfo(rawValue: byteOrder.rawValue),
+            CGBitmapInfo(rawValue: alphaInfo.rawValue)
+        ]
+        
+        // Copy the image data
+        let contiguous = np.ascontiguousarray(numpyArray)
+        
+        guard let dataValue = UInt(contiguous.__array_interface__["data"][0]) else {
+            return nil
+        }
+        
+        guard let dataPtr = UnsafeRawPointer(bitPattern: dataValue) else {
+            return nil
+        }
+        
+        let data = Data(bytes: dataPtr, count: width * height * (bitsPerPixel / 8))
+        
+        // Create image
+        guard let dataProvider = CGDataProvider(data: data as CFData) else {
+            return nil
+        }
+        
+        guard let cgImage = CGImage(width: width, height: height,
+                              bitsPerComponent: bitsPerSample, bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow,
+                              space: colorSpace, bitmapInfo: bitmapInfo,
+                              provider: dataProvider, decode: nil, shouldInterpolate: true, intent: intent) else {
+            return nil
+        }
+        
+        self.init(cgImage: cgImage, size: NSSize(width: width, height: height))
     }
     
     /// Creates a `numpy.ndarray` instance with the bitmap of this `NSImage`.
     ///
     /// - Precondition: The `numpy` Python package must be installed.
-    func makeNumpyArray() -> PythonObject {
+    func makeNumpyArray() -> PythonObject? {
         var bitmapRep: NSBitmapImageRep! = nil
         
         for rep in representations {
@@ -51,7 +123,12 @@ extension NSImage {
         }
         
         guard bitmapRep != nil else {
-            preconditionFailure("This NSImage is not supported")
+            return nil
+        }
+        
+        guard !bitmapRep.isPlanar else {
+            // Not implemented
+            return nil
         }
         
         let height = bitmapRep.pixelsHigh
@@ -60,7 +137,17 @@ extension NSImage {
         
         let bytes = bitmapRep.bitmapData!
         let shape = [height, width, channels]
-        let ctype = ctypes.c_uint8
+        let ctype: PythonObject
+        
+        switch bitmapRep.bitsPerSample {
+        case 8:
+            ctype = ctypes.c_uint8
+        case 16:
+            ctype = ctypes.c_uint16
+            
+        default:
+            return nil
+        }
         
         let data = ctypes.cast(Int(bitPattern: bytes), ctypes.POINTER(ctype))
         let ndarray = np.ctypeslib.as_array(data, shape: PythonObject(tupleContentsOf: shape))
