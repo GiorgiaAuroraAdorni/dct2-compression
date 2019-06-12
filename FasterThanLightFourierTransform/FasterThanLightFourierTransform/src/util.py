@@ -11,8 +11,8 @@ def blockshaped(arr, n):
     each subblock preserving the "physical" layout of arr.
     """
     h, w = arr.shape
-    assert h % n == 0, "{} rows is not evenly divisble by {}".format(h, n)
-    assert w % n == 0, "{} cols is not evenly divisble by {}".format(w, n)
+    assert h % n == 0, "{} rows is not evenly divisible by {}".format(h, n)
+    assert w % n == 0, "{} cols is not evenly divisible by {}".format(w, n)
     return (arr.reshape(h//n, n, -1, n)
                .swapaxes(1, 2)
                .reshape(-1, n, n))
