@@ -55,13 +55,18 @@ class ViewController: NSViewController {
             return
         }
         
-        let imageArray = image.makeNumpyArray()
-        let window = self.windowSlider.value
-        let cutoff = self.cutOffSlider.value
-        
-        let compressed = py.compress_image(imageArray, window: window, cutoff: cutoff)
-        
-        self.compressedImageWell.image = NSImage(numpy: compressed)
+        do {
+            let imageArray = image.makeNumpyArray()
+            let window = Int(self.windowSlider.value)
+            let cutoff = Int(self.cutOffSlider.value)
+            
+            let compressed = try py.compress_image.throwing.dynamicallyCall(withArguments: imageArray, window, cutoff)
+            
+            self.compressedImageWell.image = NSImage(numpy: compressed)
+        } catch {
+            // TODO: show message to the user
+            print(error)
+        }
     }
 }
 
