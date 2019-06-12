@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let pythonSources = Bundle.main.path(forResource: "src", ofType: nil)
         
         // Append the src/ folder to PYTHONPATH to be able to import it
-        sys.path.append(pythonSources)
+        sys.path.insert(0, pythonSources)
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
