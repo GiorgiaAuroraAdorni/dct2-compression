@@ -42,14 +42,14 @@ def unblockshaped(arr, h, w):
 
 def compression(c, threshold):
 ### TODO: measure the performance improvement 😂
-#    (blockRows, blockCols) = c.shape
-#
-#    for j in range(0, blockRows - 1):
-#        for k in range(0, blockCols - 1):
-#            if j + k >= threshold:
-#                c[j, k] = 0
+    (blockRows, blockCols) = c.shape
 
-    c[threshold:] = 0
+    for j in range(0, blockRows - 1):
+        for k in range(0, blockCols - 1):
+            if j + k >= threshold:
+                c[j, k] = 0
+
+#    c[threshold:] = 0
 
     # FIXME: c is modified in place
     return c
