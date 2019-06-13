@@ -17,40 +17,48 @@ class SliderView: NSControl {
     @IBOutlet weak var textField: NSTextField!
     @IBOutlet weak var stepper: NSStepper!
     
-    var value: Double = 0 {
+    var value: Int = 0 {
         didSet {
-            slider.doubleValue = value
-            textField.doubleValue = value
-            stepper.doubleValue = value
+            value = max(minValue, min(value, maxValue))
+            
+            slider.integerValue = value
+            textField.integerValue = value
+            stepper.integerValue = value
         }
     }
     
-    var minValue: Double = 0 {
+    var minValue: Int = 0 {
         didSet {
-            slider.minValue = minValue
-            stepper.minValue = minValue
-            minLabel.doubleValue = minValue
+            slider.minValue = Double(minValue)
+            stepper.minValue = Double(minValue)
+            minLabel.integerValue = minValue
+            
+            // Ensure that value is correctly clipped
+            value = (value) as Int
         }
     }
     
-    var maxValue: Double = 50 {
+    var maxValue: Int = 50 {
         didSet {
-            slider.maxValue = maxValue
-            maxLabel.doubleValue = maxValue
-            stepper.maxValue = maxValue
+            slider.maxValue = Double(maxValue)
+            stepper.maxValue = Double(maxValue)
+            maxLabel.integerValue = maxValue
+            
+            // Ensure that value is correctly clipped
+            value = (value) as Int
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.value = (self.value) as Double
-        self.minValue = (self.minValue) as Double
-        self.maxValue = (self.maxValue) as Double
+        value = (value) as Int
+        minValue = (minValue) as Int
+        maxValue = (maxValue) as Int
     }
     
     @IBAction func userDidUpdate(_ sender: NSControl) {
-        self.value = round(sender.doubleValue)
+        value = sender.integerValue
         
         self.sendAction(self.action, to: self.target)
     }
