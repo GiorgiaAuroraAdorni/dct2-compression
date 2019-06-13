@@ -713,7 +713,7 @@
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-Nh-oXk">
                                 <rect key="frame" x="160" y="499" width="500" height="98"/>
                                 <subviews>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="xEN-G9-yIu" customClass="PreciseSliderView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="xEN-G9-yIu" customClass="SliderView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="59" width="500" height="39"/>
                                         <subviews>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LFK-Mn-tyA">
@@ -799,7 +799,7 @@
                                             <outlet property="textField" destination="rr3-jO-cEH" id="Xs7-Pi-hFn"/>
                                         </connections>
                                     </customView>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="cK3-oD-uan" customClass="PreciseSliderView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="cK3-oD-uan" customClass="SliderView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="500" height="39"/>
                                         <subviews>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qvg-Qh-9Sl">

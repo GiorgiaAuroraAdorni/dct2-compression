@@ -14,8 +14,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var originalImageWell: ImageView!
     @IBOutlet weak var compressedImageWell: ImageView!
     
-    @IBOutlet weak var windowSlider: PreciseSliderView!
-    @IBOutlet weak var cutOffSlider: PreciseSliderView!
+    @IBOutlet weak var windowSlider: SliderView!
+    @IBOutlet weak var cutOffSlider: SliderView!
     
     private let py = Python.import("main")
     

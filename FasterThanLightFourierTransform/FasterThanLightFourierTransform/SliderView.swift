@@ -1,5 +1,5 @@
 //
-//  PreciseSliderView.swift
+//  SliderView.swift
 //  FasterThanLightFourierTransform
 //
 //  Created by Giorgia Adorni on 01/06/2019.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PreciseSliderView: NSControl {
+class SliderView: NSControl {
 
     @IBOutlet weak var slider: NSSlider!
     @IBOutlet weak var minLabel: NSTextField!
