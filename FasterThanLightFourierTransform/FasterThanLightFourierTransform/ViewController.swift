@@ -7,11 +7,12 @@
 //
 
 import Cocoa
+import Quartz
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var originalImageWell: NSImageView!
-    @IBOutlet weak var compressedImageWell: NSImageView!
+    @IBOutlet weak var originalImageWell: ImageView!
+    @IBOutlet weak var compressedImageWell: ImageView!
     
     @IBOutlet weak var windowSlider: PreciseSliderView!
     @IBOutlet weak var cutOffSlider: PreciseSliderView!
@@ -22,8 +23,33 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+//        self.compressedImageWell.refusesFirstResponder = false
+//        self.compressedImageWell.allowsCutCopyPaste = true
+//        self.compressedImageWell.isEnabled = true
+//        self.compressedImageWell.focusRingType = .exterior
+        self.compressedImageWell.isEditable = true
+        // FIXME: not really what I wanted
     }
 
+    override func keyUp(with event: NSEvent) {
+        // FIXME: shouldn't receive event when a text field is active
+        guard event.characters == " " else {
+            return super.keyUp(with: event)
+        }
+        
+        self.toggleQuickLookPanel()
+    }
+    
+    private func toggleQuickLookPanel() {
+        let panel = QLPreviewPanel.shared()!
+        
+        if !panel.isVisible {
+            panel.makeKeyAndOrderFront(self)
+        } else {
+            panel.close()
+        }
+    }
+    
     @IBAction func userDidUpdateParameters(_ sender: Any) {
         self.updateCompressedImage()
     }

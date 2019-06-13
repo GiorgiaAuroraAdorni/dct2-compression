@@ -899,14 +899,14 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mks-t6-kCe">
+                            <imageView toolTip="Original Image" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mks-t6-kCe" customClass="ImageView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
                                 <rect key="frame" x="17" y="58" width="426" height="390"/>
                                 <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="XLo-Xf-Q23"/>
                                 <connections>
                                     <action selector="userDidDropImage:" target="XfG-lQ-9wD" id="L3c-J1-Nv3"/>
                                 </connections>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HZf-On-RTI">
+                            <imageView toolTip="Compressed Image" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HZf-On-RTI" customClass="ImageView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
                                 <rect key="frame" x="457" y="58" width="426" height="390"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="EeM-a8-ykV"/>
                             </imageView>
