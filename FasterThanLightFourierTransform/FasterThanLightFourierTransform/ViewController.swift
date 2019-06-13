@@ -29,6 +29,13 @@ class ViewController: NSViewController {
 //        self.compressedImageWell.focusRingType = .exterior
         self.compressedImageWell.isEditable = true
         // FIXME: not really what I wanted
+        
+        self.windowSlider.minValue = 1
+        self.windowSlider.value = 8
+        self.windowSlider.maxValue = 64
+        
+        self.cutOffSlider.minValue = 0
+        self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
     }
 
     override func keyUp(with event: NSEvent) {
@@ -51,6 +58,8 @@ class ViewController: NSViewController {
     }
     
     @IBAction func userDidUpdateParameters(_ sender: Any) {
+        self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
+        
         self.updateCompressedImage()
     }
     
