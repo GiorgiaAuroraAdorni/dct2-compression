@@ -46,15 +46,16 @@ def unblockshaped(arr, shape):
 
 
 def compress(array, threshold):
-### TODO: measure the performance improvement 😂
-    (_, blockRows, blockCols) = array.shape
+    # Take the last two dimensions of the input
+    block_rows, block_cols = array.shape[-2:]
 
-    for j in range(0, blockRows):
-        for k in range(0, blockCols):
-            if j + k >= threshold:
-                array[:, j, k] = 0
+    j = np.arange(block_rows)
+    k = np.arange(block_cols)
 
-#    c[threshold:] = 0
+    # Select the elements where j + k ≥ threshold
+    mask = np.greater_equal.outer(j, -k + threshold)
 
-    # FIXME: c is modified in place
+    # Zero them out
+    array[:, mask] = 0
+
     return array
