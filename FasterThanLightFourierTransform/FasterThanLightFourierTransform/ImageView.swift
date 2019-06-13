@@ -36,10 +36,12 @@ class ImageView: NSImageView, QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     
     // MARK: - QLPreviewPanelController
     
-    private var isPreviewPanelController: Bool = false
-    
     private var previewPanel: QLPreviewPanel? {
-        return self.isPreviewPanelController ? QLPreviewPanel.shared() : nil
+        if QLPreviewPanel.sharedPreviewPanelExists() {
+            return QLPreviewPanel.shared()
+        } else {
+            return nil
+        }
     }
     
     override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool {
@@ -47,8 +49,6 @@ class ImageView: NSImageView, QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     }
     
     override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
-        self.isPreviewPanelController = true
-        
         panel.dataSource = self
         panel.delegate = self
     }
@@ -56,8 +56,6 @@ class ImageView: NSImageView, QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
         panel.dataSource = nil
         panel.delegate = nil
-        
-        self.isPreviewPanelController = false
     }
     
     // MARK: - QLPreviewPanelDataSource
