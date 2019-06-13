@@ -20,7 +20,7 @@ def compress_image(image, window, cutoff):
         ff = idctn(compressed, type=2, norm='ortho')
 
         # normalize idct
-        normalized = np.clip(ff, 0, 255)
+        normalized = np.clip(np.round(ff), 0, 255)
 
         result_array[i] = normalized
 

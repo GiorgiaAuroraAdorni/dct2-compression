@@ -1,8 +1,10 @@
 import main
+import util
 
 from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy.fftpack import dctn, idctn
 
 
 def load_image(img):
@@ -55,8 +57,8 @@ prova_blocco = np.array([[231,    32,   233,   161,    24,    71,   140,   245],
 
 prova_c = dctn(prova_blocco, type=2, norm='ortho')
 
-prova_compressed = compression(prova_c)
+prova_compressed = util.compression(prova_c, threshold=5)
 
 prova_ff = idctn(prova_compressed, type=2, norm='ortho')
 
-prova_normalized_ff = normalize(prova_ff)
+prova_normalized_ff = np.clip(np.round(prova_ff), 0, 255)
