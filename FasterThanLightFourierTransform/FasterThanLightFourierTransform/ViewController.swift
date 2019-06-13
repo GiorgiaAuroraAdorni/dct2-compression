@@ -55,18 +55,39 @@ class ViewController: NSViewController {
             return
         }
         
+        let window = Int(self.windowSlider.value)
+        let cutoff = Int(self.cutOffSlider.value)
+        
+        // TODO: do processing on background thread
+        
+        var compressedImage: NSImage?
+        
         do {
-            let imageArray = image.makeNumpyArray()
-            let window = Int(self.windowSlider.value)
-            let cutoff = Int(self.cutOffSlider.value)
-            
-            let compressed = try py.compress_image.throwing.dynamicallyCall(withArguments: imageArray, window, cutoff)
-            
-            self.compressedImageWell.image = NSImage(numpy: compressed)
+            compressedImage = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff)
         } catch {
             // TODO: show message to the user
             print(error)
         }
+        
+        self.compressedImageWell.image = compressedImage
+    }
+    
+    private func generateCompressedImage(from image: NSImage, window: Int, cutoff: Int) throws -> NSImage {
+        guard let imageArray = image.makeNumpyArray() else {
+            throw NSError(domain: "FtlFT", code: 1, userInfo: [
+                NSLocalizedDescriptionKey: "The format of the input image is not supported."
+            ])
+        }
+        
+        let compressed = try py.compress_image.throwing.dynamicallyCall(withArguments: imageArray, window, cutoff)
+        
+        guard let compressedImage = NSImage(numpy: compressed) else {
+            throw NSError(domain: "FtlFT", code: 2, userInfo: [
+                NSLocalizedDescriptionKey: "Couldn't process output image"
+            ])
+        }
+        
+        return compressedImage
     }
 }
 
