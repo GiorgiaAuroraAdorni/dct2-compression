@@ -30,7 +30,10 @@ class ImageView: NSImageView, QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     
     override var image: NSImage? {
         didSet {
-            self.previewPanel?.reloadData()
+            // Reload data only if this is the current controller
+            if let panel = self.previewPanel, panel.currentController as AnyObject === self {
+                panel.reloadData()
+            }
         }
     }
     
