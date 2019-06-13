@@ -901,14 +901,14 @@
                             </stackView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mks-t6-kCe">
                                 <rect key="frame" x="17" y="58" width="426" height="390"/>
-                                <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="XLo-Xf-Q23"/>
+                                <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="XLo-Xf-Q23"/>
                                 <connections>
                                     <action selector="userDidDropImage:" target="XfG-lQ-9wD" id="L3c-J1-Nv3"/>
                                 </connections>
                             </imageView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HZf-On-RTI">
                                 <rect key="frame" x="457" y="58" width="426" height="390"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="EeM-a8-ykV"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="EeM-a8-ykV"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bZ6-PW-xNb">
                                 <rect key="frame" x="187" y="453" width="86" height="14"/>
