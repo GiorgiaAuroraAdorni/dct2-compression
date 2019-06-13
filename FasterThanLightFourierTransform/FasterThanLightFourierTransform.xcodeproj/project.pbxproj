@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4513F39722AF0106002EB4BE /* src in Resources */ = {isa = PBXBuildFile; fileRef = 4513F39622AF0105002EB4BE /* src */; };
 		4530430D22B28D760036E361 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4530430C22B28D760036E361 /* ImageView.swift */; };
+		4530430F22B2B8C40036E361 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4530430E22B2B8C40036E361 /* Performance.swift */; };
 		453C8CC222A52BA900AB5A28 /* NSImage+Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C8CC122A52BA900AB5A28 /* NSImage+Python.swift */; };
 		C76E326022A2D140004F6D60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76E325F22A2D140004F6D60 /* AppDelegate.swift */; };
 		C76E326222A2D140004F6D60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76E326122A2D140004F6D60 /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		4513F39622AF0105002EB4BE /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 		4530430C22B28D760036E361 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		4530430E22B2B8C40036E361 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 		453C8CC122A52BA900AB5A28 /* NSImage+Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Python.swift"; sourceTree = "<group>"; };
 		C76E325C22A2D140004F6D60 /* FasterThanLightFourierTransform.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FasterThanLightFourierTransform.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76E325F22A2D140004F6D60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				4513F39622AF0105002EB4BE /* src */,
 				C76E325F22A2D140004F6D60 /* AppDelegate.swift */,
 				C76E326122A2D140004F6D60 /* ViewController.swift */,
+				4530430E22B2B8C40036E361 /* Performance.swift */,
 				C78AC1F222A2F0FE00D0AEF8 /* SliderView.swift */,
 				4530430C22B28D760036E361 /* ImageView.swift */,
 				C76E326322A2D143004F6D60 /* Assets.xcassets */,
@@ -180,6 +183,7 @@
 				C76E326022A2D140004F6D60 /* AppDelegate.swift in Sources */,
 				C7BF869A22A3D1F000DF8233 /* PythonLibrary.swift in Sources */,
 				C78AC1F322A2F0FE00D0AEF8 /* SliderView.swift in Sources */,
+				4530430F22B2B8C40036E361 /* Performance.swift in Sources */,
 				4530430D22B28D760036E361 /* ImageView.swift in Sources */,
 				C7BF869722A3D1F000DF8233 /* NumpyConversion.swift in Sources */,
 				C7BF869822A3D1F000DF8233 /* Python.swift in Sources */,

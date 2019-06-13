@@ -85,6 +85,14 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func runBenchmark(_ sender: Any) {
+        let samples = benchmark(block: self.updateCompressedImage)
+        
+        summary(samples: samples)
+    }
+    
+    // MARK: - Process updates
+    
     func updateCompressedImage() {
         guard let image = self.originalImageWell.image else {
             return
@@ -125,4 +133,3 @@ class ViewController: NSViewController {
         return compressedImage
     }
 }
-

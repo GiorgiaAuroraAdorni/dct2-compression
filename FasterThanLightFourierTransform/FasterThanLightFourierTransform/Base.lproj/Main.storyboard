@@ -936,8 +936,19 @@
                                     <action selector="open:" target="XfG-lQ-9wD" id="Qky-bU-cHD"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zdI-qK-5mF">
+                                <rect key="frame" x="396" y="13" width="109" height="32"/>
+                                <buttonCell key="cell" type="push" title="Benchmark" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ckc-zM-yNN">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="runBenchmark:" target="XfG-lQ-9wD" id="J90-kH-723"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="zdI-qK-5mF" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1On-X6-xmr"/>
                             <constraint firstItem="PsS-M3-uOB" firstAttribute="top" secondItem="mn6-Nh-oXk" secondAttribute="bottom" constant="32" id="6IH-xX-axI"/>
                             <constraint firstItem="mks-t6-kCe" firstAttribute="top" secondItem="bZ6-PW-xNb" secondAttribute="bottom" constant="8" id="AKb-s9-yTI"/>
                             <constraint firstItem="mks-t6-kCe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="HqI-RF-ibl"/>
@@ -946,6 +957,7 @@
                             <constraint firstItem="PsS-M3-uOB" firstAttribute="centerX" secondItem="HZf-On-RTI" secondAttribute="centerX" id="ODs-Jw-cPO"/>
                             <constraint firstItem="HZf-On-RTI" firstAttribute="top" secondItem="PsS-M3-uOB" secondAttribute="bottom" constant="8" id="Sb4-SU-cfT"/>
                             <constraint firstItem="mn6-Nh-oXk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="32" id="UWW-hV-clH"/>
+                            <constraint firstItem="zdI-qK-5mF" firstAttribute="firstBaseline" secondItem="Stu-q1-vAj" secondAttribute="firstBaseline" id="VoW-y3-9eD"/>
                             <constraint firstItem="bZ6-PW-xNb" firstAttribute="top" secondItem="mn6-Nh-oXk" secondAttribute="bottom" constant="32" id="dj7-ky-3Et"/>
                             <constraint firstItem="bZ6-PW-xNb" firstAttribute="centerX" secondItem="mks-t6-kCe" secondAttribute="centerX" id="dxi-8a-ezg"/>
                             <constraint firstAttribute="bottom" secondItem="Stu-q1-vAj" secondAttribute="bottom" constant="20" id="lS6-0c-2VL"/>
