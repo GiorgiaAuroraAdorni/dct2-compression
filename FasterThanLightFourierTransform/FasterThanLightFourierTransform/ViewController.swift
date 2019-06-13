@@ -88,9 +88,30 @@ class ViewController: NSViewController {
     }
     
     @IBAction func runBenchmark(_ sender: Any) {
-        let samples = benchmark(block: self.updateCompressedImage)
+        self.statusLabel.stringValue = "Ready…"
         
-        summary(samples: samples)
+        guard let image = self.originalImageWell.image else {
+            return
+        }
+        
+        let window = self.windowSlider.value
+        let cutoff = self.cutOffSlider.value
+        
+        self.statusLabel.stringValue = "Running benchmark…"
+        
+        DispatchQueue.main.async {
+            do {
+                let samples = try benchmark {
+                    _ = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff)
+                }
+                
+                summary(samples: samples)
+                
+                self.statusLabel.stringValue = "Benchmark completed."
+            } catch {
+                self.statusLabel.stringValue = "ERROR: \(error.localizedDescription)"
+            }
+        }
     }
     
     // MARK: - Process updates
@@ -102,26 +123,28 @@ class ViewController: NSViewController {
             return
         }
         
-        let window = Int(self.windowSlider.value)
-        let cutoff = Int(self.cutOffSlider.value)
+        let window = self.windowSlider.value
+        let cutoff = self.cutOffSlider.value
         
         self.statusLabel.stringValue = "Processing…"
         
-        // TODO: do processing on background thread
+        // Defer to next runloop cycle to update the status label.
         DispatchQueue.main.async {
             var compressedImage: NSImage?
+            var status: String?
             
             do {
                 let time = try measure {
                     compressedImage = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff)
                 }
                 
-                self.statusLabel.stringValue = String(format: "Image has been processed in %.3lf ms.", time)
+                status = String(format: "Image has been processed in %.3lf ms.", time)
             } catch {
-                self.statusLabel.stringValue = "ERROR: \(error.localizedDescription)"
+                status = "ERROR: \(error.localizedDescription)"
             }
             
             self.compressedImageWell.image = compressedImage
+            self.statusLabel.stringValue = status!
         }
     }
     

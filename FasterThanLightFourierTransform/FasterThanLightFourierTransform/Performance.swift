@@ -16,13 +16,13 @@ func measure(block: () throws -> ()) rethrows -> Double {
     return Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1000_000
 }
 
-func benchmark(n: Int = 50, block: () -> ()) -> [Double] {
+func benchmark(n: Int = 50, block: () throws -> ()) rethrows -> [Double] {
     var samples = [Double]()
     
     samples.reserveCapacity(n)
     
     for _ in 0..<n {
-        let time = measure(block: block)
+        let time = try measure(block: block)
         
         samples.append(time)
     }
@@ -46,7 +46,10 @@ func summary(samples: [Double]) {
     
     let plt = Python.import("matplotlib.pyplot")
     
-    let title = "Execution times over \(n) samples: mean \(mean) ms, stdev \(stdev) ms"
+    let title = String(format: """
+        Execution times over %d samples:
+        mean %.3lf ms, stdev %.3lf ms
+    """, samples.count, mean, stdev)
     
     // Enable interactive mode
     plt.ion()
@@ -58,7 +61,15 @@ func summary(samples: [Double]) {
     
     plt.subplot(1, 2, 1)
     plt.plot(samples)
+    plt.title("Plot")
+    plt.xlabel("Samples")
+    plt.ylabel("Time (ms)")
     
     plt.subplot(1, 2, 2)
     plt.hist(samples)
+    plt.title("Histogram")
+    plt.xlabel("Time (ms)")
+    plt.ylabel("Count")
+    
+    plt.tight_layout(rect: [0, 0.03, 1, 0.92])
 }
