@@ -264,6 +264,7 @@ private func throwPythonErrorIfPresent() throws {
 ///   `@dynamicCallable` attribute because the call syntax is unintuitive:
 ///   `x.throwing(arg1, arg2, ...)`. The methods will still be named
 ///   `dynamicallyCall` until further discussion/design.
+@dynamicCallable
 @_fixed_layout
 public struct ThrowingPythonObject {
   private var base: PythonObject

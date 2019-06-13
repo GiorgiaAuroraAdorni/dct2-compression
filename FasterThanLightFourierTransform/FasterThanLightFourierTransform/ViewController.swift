@@ -114,7 +114,7 @@ class ViewController: NSViewController {
             ])
         }
         
-        let compressed = try py.compress_image.throwing.dynamicallyCall(withArguments: imageArray, window, cutoff)
+        let compressed = try py.compress_image.throwing(imageArray, window: window, cutoff: cutoff)
         
         guard let compressedImage = NSImage(numpy: compressed) else {
             throw NSError(domain: "FtlFT", code: 2, userInfo: [
