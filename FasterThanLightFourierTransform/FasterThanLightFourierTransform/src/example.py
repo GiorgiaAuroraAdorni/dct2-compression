@@ -57,7 +57,7 @@ prova_blocco = np.array([[231,    32,   233,   161,    24,    71,   140,   245],
 
 prova_c = dctn(prova_blocco, type=2, norm='ortho')
 
-prova_compressed = util.compression(prova_c, threshold=5)
+prova_compressed = util.compress(prova_c, threshold=5)
 
 prova_ff = idctn(prova_compressed, type=2, norm='ortho')
 
