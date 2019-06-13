@@ -8,9 +8,9 @@
 
 import Foundation
 
-func measure(block: () -> ()) -> Double {
+func measure(block: () throws -> ()) rethrows -> Double {
     let start = DispatchTime.now()
-    block()
+    try block()
     let end = DispatchTime.now()
     
     return Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1000_000

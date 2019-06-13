@@ -17,6 +17,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var windowSlider: SliderView!
     @IBOutlet weak var cutOffSlider: SliderView!
     
+    @IBOutlet weak var statusLabel: NSTextField!
+    
     private let py = Python.import("main")
     
     override func viewDidLoad() {
@@ -32,7 +34,7 @@ class ViewController: NSViewController {
         
         self.windowSlider.minValue = 1
         self.windowSlider.value = 8
-        self.windowSlider.maxValue = 64
+        self.windowSlider.maxValue = 128
         
         self.cutOffSlider.minValue = 0
         self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
@@ -94,6 +96,8 @@ class ViewController: NSViewController {
     // MARK: - Process updates
     
     func updateCompressedImage() {
+        self.statusLabel.stringValue = "Ready…"
+        
         guard let image = self.originalImageWell.image else {
             return
         }
@@ -101,18 +105,24 @@ class ViewController: NSViewController {
         let window = Int(self.windowSlider.value)
         let cutoff = Int(self.cutOffSlider.value)
         
+        self.statusLabel.stringValue = "Processing…"
+        
         // TODO: do processing on background thread
-        
-        var compressedImage: NSImage?
-        
-        do {
-            compressedImage = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff)
-        } catch {
-            // TODO: show message to the user
-            print(error)
+        DispatchQueue.main.async {
+            var compressedImage: NSImage?
+            
+            do {
+                let time = try measure {
+                    compressedImage = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff)
+                }
+                
+                self.statusLabel.stringValue = String(format: "Image has been processed in %.3lf ms.", time)
+            } catch {
+                self.statusLabel.stringValue = "ERROR: \(error.localizedDescription)"
+            }
+            
+            self.compressedImageWell.image = compressedImage
         }
-        
-        self.compressedImageWell.image = compressedImage
     }
     
     private func generateCompressedImage(from image: NSImage, window: Int, cutoff: Int) throws -> NSImage {
@@ -126,7 +136,7 @@ class ViewController: NSViewController {
         
         guard let compressedImage = NSImage(numpy: compressed) else {
             throw NSError(domain: "FtlFT", code: 2, userInfo: [
-                NSLocalizedDescriptionKey: "Couldn't process output image"
+                NSLocalizedDescriptionKey: "Couldn't process output image."
             ])
         }
         

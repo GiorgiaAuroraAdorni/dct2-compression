@@ -690,6 +690,7 @@
                         <rect key="contentRect" x="196" y="240" width="900" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="900" height="600"/>
+                        <contentBorderThickness minY="22"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -900,14 +901,14 @@
                                 </customSpacing>
                             </stackView>
                             <imageView toolTip="Original Image" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mks-t6-kCe" customClass="ImageView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
-                                <rect key="frame" x="17" y="58" width="426" height="390"/>
+                                <rect key="frame" x="17" y="80" width="426" height="368"/>
                                 <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="XLo-Xf-Q23"/>
                                 <connections>
                                     <action selector="userDidDropImage:" target="XfG-lQ-9wD" id="L3c-J1-Nv3"/>
                                 </connections>
                             </imageView>
                             <imageView toolTip="Compressed Image" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HZf-On-RTI" customClass="ImageView" customModule="FasterThanLightFourierTransform" customModuleProvider="target">
-                                <rect key="frame" x="457" y="58" width="426" height="390"/>
+                                <rect key="frame" x="457" y="80" width="426" height="368"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="EeM-a8-ykV"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bZ6-PW-xNb">
@@ -927,7 +928,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Stu-q1-vAj">
-                                <rect key="frame" x="168" y="13" width="124" height="32"/>
+                                <rect key="frame" x="168" y="35" width="124" height="32"/>
                                 <buttonCell key="cell" type="push" title="Open Image…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uvi-8G-LR9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -937,7 +938,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zdI-qK-5mF">
-                                <rect key="frame" x="396" y="13" width="109" height="32"/>
+                                <rect key="frame" x="396" y="35" width="109" height="32"/>
                                 <buttonCell key="cell" type="push" title="Benchmark" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ckc-zM-yNN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -946,6 +947,14 @@
                                     <action selector="runBenchmark:" target="XfG-lQ-9wD" id="J90-kH-723"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wvq-ya-NPm">
+                                <rect key="frame" x="6" y="4" width="888" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Ready…" id="8sQ-iv-aeN">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="zdI-qK-5mF" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1On-X6-xmr"/>
@@ -953,14 +962,17 @@
                             <constraint firstItem="mks-t6-kCe" firstAttribute="top" secondItem="bZ6-PW-xNb" secondAttribute="bottom" constant="8" id="AKb-s9-yTI"/>
                             <constraint firstItem="mks-t6-kCe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="HqI-RF-ibl"/>
                             <constraint firstItem="Stu-q1-vAj" firstAttribute="centerX" secondItem="mks-t6-kCe" secondAttribute="centerX" id="IVH-j8-Ng5"/>
+                            <constraint firstAttribute="bottom" secondItem="wvq-ya-NPm" secondAttribute="bottom" constant="4" id="KJW-Ir-ngA"/>
                             <constraint firstItem="HZf-On-RTI" firstAttribute="leading" secondItem="mks-t6-kCe" secondAttribute="trailing" constant="20" id="MNu-8w-nMr"/>
                             <constraint firstItem="PsS-M3-uOB" firstAttribute="centerX" secondItem="HZf-On-RTI" secondAttribute="centerX" id="ODs-Jw-cPO"/>
                             <constraint firstItem="HZf-On-RTI" firstAttribute="top" secondItem="PsS-M3-uOB" secondAttribute="bottom" constant="8" id="Sb4-SU-cfT"/>
                             <constraint firstItem="mn6-Nh-oXk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="32" id="UWW-hV-clH"/>
                             <constraint firstItem="zdI-qK-5mF" firstAttribute="firstBaseline" secondItem="Stu-q1-vAj" secondAttribute="firstBaseline" id="VoW-y3-9eD"/>
+                            <constraint firstItem="wvq-ya-NPm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="8" id="bia-oY-oe6"/>
                             <constraint firstItem="bZ6-PW-xNb" firstAttribute="top" secondItem="mn6-Nh-oXk" secondAttribute="bottom" constant="32" id="dj7-ky-3Et"/>
                             <constraint firstItem="bZ6-PW-xNb" firstAttribute="centerX" secondItem="mks-t6-kCe" secondAttribute="centerX" id="dxi-8a-ezg"/>
-                            <constraint firstAttribute="bottom" secondItem="Stu-q1-vAj" secondAttribute="bottom" constant="20" id="lS6-0c-2VL"/>
+                            <constraint firstAttribute="trailing" secondItem="wvq-ya-NPm" secondAttribute="trailing" constant="8" id="kN7-IF-fIm"/>
+                            <constraint firstAttribute="bottom" secondItem="Stu-q1-vAj" secondAttribute="bottom" constant="42" id="lS6-0c-2VL"/>
                             <constraint firstItem="HZf-On-RTI" firstAttribute="width" secondItem="mks-t6-kCe" secondAttribute="width" id="prw-gc-HCG"/>
                             <constraint firstItem="Stu-q1-vAj" firstAttribute="top" secondItem="mks-t6-kCe" secondAttribute="bottom" constant="20" id="q6c-im-dai"/>
                             <constraint firstAttribute="trailing" secondItem="HZf-On-RTI" secondAttribute="trailing" constant="20" id="qb8-jG-NNU"/>
@@ -972,6 +984,7 @@
                         <outlet property="compressedImageWell" destination="HZf-On-RTI" id="Sh3-uh-HiD"/>
                         <outlet property="cutOffSlider" destination="cK3-oD-uan" id="0KQ-vd-CWB"/>
                         <outlet property="originalImageWell" destination="mks-t6-kCe" id="C3q-aO-bt2"/>
+                        <outlet property="statusLabel" destination="wvq-ya-NPm" id="e00-MH-J9T"/>
                         <outlet property="windowSlider" destination="xEN-G9-yIu" id="H29-2a-Cwh"/>
                     </connections>
                 </viewController>
