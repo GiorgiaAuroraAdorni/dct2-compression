@@ -43,7 +43,7 @@ class ViewController: NSViewController, NSMenuItemValidation {
         self.compressedImageWell.isEditable = true
         // FIXME: not really what I wanted
         
-        self.windowSlider.minValue = 1
+        self.windowSlider.minValue = 2
         self.windowSlider.value = 8
         self.windowSlider.maxValue = 128
         
