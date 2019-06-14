@@ -9,6 +9,8 @@
 import Cocoa
 import Quartz
 
+private let py = Python.import("main")
+
 class ViewController: NSViewController, NSMenuItemValidation {
 
     @IBOutlet weak var originalImageWell: ImageView!
@@ -19,8 +21,6 @@ class ViewController: NSViewController, NSMenuItemValidation {
     
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var statusLabel: NSTextField!
-    
-    private let py = Python.import("main")
     
     private var originalImage: NSImage? {
         get { return self.originalImageWell.image }
@@ -56,7 +56,6 @@ class ViewController: NSViewController, NSMenuItemValidation {
         self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
         
         self.saveButton.isEnabled = (self.compressedImage != nil)
-        
         
         // FIXME: this is an ugly hack. how the hell should magnification filters be configured on an NSImageView?
         self.originalImageWell.subviews.first?.layer?.magnificationFilter = .nearest

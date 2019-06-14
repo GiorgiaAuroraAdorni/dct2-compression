@@ -8,6 +8,8 @@
 
 import Foundation
 
+private let plt = Python.import("matplotlib.pyplot")
+
 func measure(block: () throws -> ()) rethrows -> Double {
     let start = DispatchTime.now()
     try block()
@@ -43,8 +45,6 @@ func summary(samples: [Double]) {
     let mean = sum / n
     let variance = sumSquared / n - mean * mean
     let stdev = sqrt(variance)
-    
-    let plt = Python.import("matplotlib.pyplot")
     
     let title = String(format: """
         Execution times over %d samples:
