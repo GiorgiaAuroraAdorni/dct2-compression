@@ -58,10 +58,9 @@ class ViewController: NSViewController, NSMenuItemValidation {
         self.saveButton.isEnabled = (self.compressedImage != nil)
     }
     
-    override func keyUp(with event: NSEvent) {
-        // FIXME: shouldn't receive event when a text field is active
+    override func keyDown(with event: NSEvent) {
         guard event.characters == " " else {
-            return super.keyUp(with: event)
+            return super.keyDown(with: event)
         }
         
         self.toggleQuickLookPanel()
