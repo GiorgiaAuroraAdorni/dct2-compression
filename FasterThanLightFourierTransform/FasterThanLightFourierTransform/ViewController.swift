@@ -9,7 +9,7 @@
 import Cocoa
 import Quartz
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSMenuItemValidation {
 
     @IBOutlet weak var originalImageWell: ImageView!
     @IBOutlet weak var compressedImageWell: ImageView!
@@ -17,9 +17,20 @@ class ViewController: NSViewController {
     @IBOutlet weak var windowSlider: SliderView!
     @IBOutlet weak var cutOffSlider: SliderView!
     
+    @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var statusLabel: NSTextField!
     
     private let py = Python.import("main")
+    
+    private var originalImage: NSImage? {
+        get { return self.originalImageWell.image }
+        set { self.originalImageWell.image = newValue }
+    }
+    
+    private var compressedImage: NSImage? {
+        get { return self.compressedImageWell.image }
+        set { self.compressedImageWell.image = newValue; self.updateInterfaceState() }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +48,16 @@ class ViewController: NSViewController {
         self.windowSlider.maxValue = 128
         
         self.cutOffSlider.minValue = 0
-        self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
+        
+        self.updateInterfaceState()
     }
 
+    private func updateInterfaceState() {
+        self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
+        
+        self.saveButton.isEnabled = (self.compressedImage != nil)
+    }
+    
     override func keyUp(with event: NSEvent) {
         // FIXME: shouldn't receive event when a text field is active
         guard event.characters == " " else {
@@ -60,8 +78,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func userDidUpdateParameters(_ sender: Any) {
-        self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
-        
+        self.updateInterfaceState()
         self.updateCompressedImage()
     }
     
@@ -74,23 +91,20 @@ class ViewController: NSViewController {
         
         panel.allowedFileTypes = [kUTTypeImage as String]
         
-        panel.directoryURL = URL(fileURLWithPath: NSHomeDirectory())
-            .appendingPathComponent("FtlFT/images", isDirectory: true)
-        
         panel.beginSheetModal(for: self.view.window!) { response in
             if response == .OK {
                 let image = NSImage(contentsOf: panel.url!)
 
-                self.originalImageWell.image = image
+                self.originalImage = image
                 self.updateCompressedImage()
             }
         }
     }
     
-    @IBAction func runBenchmark(_ sender: Any) {
+    @IBAction func runBenchmark(_ sender: NSButton) {
         self.statusLabel.stringValue = "Ready…"
         
-        guard let image = self.originalImageWell.image else {
+        guard let image = self.originalImage else {
             return
         }
         
@@ -114,12 +128,48 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func save(_ sender: NSButton) {
+        guard let image = self.compressedImage else {
+            return
+        }
+        
+        let panel = NSSavePanel()
+        
+        panel.allowedFileTypes = [kUTTypeTIFF as String]
+        
+        panel.beginSheetModal(for: self.view.window!) { response in
+            if response == .OK {
+                guard let data = image.tiffRepresentation(using: .lzw, factor: 0.0) else {
+                    self.statusLabel.stringValue = "ERROR: Unable to create image file."
+                    return
+                }
+                
+                do {
+                    try data.write(to: panel.url!)
+                } catch {
+                    self.statusLabel.stringValue = "ERROR: \(error.localizedDescription)"
+                    return
+                }
+            }
+        }
+    }
+    
+    func validateMenuItem(_ item: NSMenuItem) -> Bool {
+        switch item.action {
+        case #selector(save):
+            return self.saveButton.isEnabled
+            
+        default:
+            return true
+        }
+    }
+    
     // MARK: - Process updates
     
     func updateCompressedImage() {
         self.statusLabel.stringValue = "Ready…"
         
-        guard let image = self.originalImageWell.image else {
+        guard let image = self.originalImage else {
             return
         }
         
@@ -143,7 +193,7 @@ class ViewController: NSViewController {
                 status = "ERROR: \(error.localizedDescription)"
             }
             
-            self.compressedImageWell.image = compressedImage
+            self.compressedImage = compressedImage
             self.statusLabel.stringValue = status!
         }
     }

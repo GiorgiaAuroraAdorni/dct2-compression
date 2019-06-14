@@ -90,17 +90,7 @@
                                         </menuItem>
                                         <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
-                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
-                                            <connections>
-                                                <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="KaW-ft-85H">
-                                            <connections>
-                                                <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
+                                                <action selector="save:" target="Ady-hI-5gd" id="HFi-EO-xRZ"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
@@ -955,9 +945,20 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xf3-tR-elK">
+                                <rect key="frame" x="610" y="35" width="120" height="32"/>
+                                <buttonCell key="cell" type="push" title="Save Image…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Gr8-cL-7OM">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="save:" target="XfG-lQ-9wD" id="AGF-Ll-FU0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="zdI-qK-5mF" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1On-X6-xmr"/>
+                            <constraint firstItem="xf3-tR-elK" firstAttribute="centerX" secondItem="HZf-On-RTI" secondAttribute="centerX" id="5Oi-V9-cfz"/>
                             <constraint firstItem="PsS-M3-uOB" firstAttribute="top" secondItem="mn6-Nh-oXk" secondAttribute="bottom" constant="32" id="6IH-xX-axI"/>
                             <constraint firstItem="mks-t6-kCe" firstAttribute="top" secondItem="bZ6-PW-xNb" secondAttribute="bottom" constant="8" id="AKb-s9-yTI"/>
                             <constraint firstItem="mks-t6-kCe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="HqI-RF-ibl"/>
@@ -965,6 +966,7 @@
                             <constraint firstAttribute="bottom" secondItem="wvq-ya-NPm" secondAttribute="bottom" constant="4" id="KJW-Ir-ngA"/>
                             <constraint firstItem="HZf-On-RTI" firstAttribute="leading" secondItem="mks-t6-kCe" secondAttribute="trailing" constant="20" id="MNu-8w-nMr"/>
                             <constraint firstItem="PsS-M3-uOB" firstAttribute="centerX" secondItem="HZf-On-RTI" secondAttribute="centerX" id="ODs-Jw-cPO"/>
+                            <constraint firstItem="xf3-tR-elK" firstAttribute="firstBaseline" secondItem="Stu-q1-vAj" secondAttribute="firstBaseline" id="OaS-7N-Sri"/>
                             <constraint firstItem="HZf-On-RTI" firstAttribute="top" secondItem="PsS-M3-uOB" secondAttribute="bottom" constant="8" id="Sb4-SU-cfT"/>
                             <constraint firstItem="mn6-Nh-oXk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="32" id="UWW-hV-clH"/>
                             <constraint firstItem="zdI-qK-5mF" firstAttribute="firstBaseline" secondItem="Stu-q1-vAj" secondAttribute="firstBaseline" id="VoW-y3-9eD"/>
@@ -984,6 +986,7 @@
                         <outlet property="compressedImageWell" destination="HZf-On-RTI" id="Sh3-uh-HiD"/>
                         <outlet property="cutOffSlider" destination="cK3-oD-uan" id="0KQ-vd-CWB"/>
                         <outlet property="originalImageWell" destination="mks-t6-kCe" id="C3q-aO-bt2"/>
+                        <outlet property="saveButton" destination="xf3-tR-elK" id="Oxk-hU-gTs"/>
                         <outlet property="statusLabel" destination="wvq-ya-NPm" id="e00-MH-J9T"/>
                         <outlet property="windowSlider" destination="xEN-G9-yIu" id="H29-2a-Cwh"/>
                     </connections>
