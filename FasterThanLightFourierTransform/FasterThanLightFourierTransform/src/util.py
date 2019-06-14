@@ -63,7 +63,7 @@ def compress(array, threshold):
     j = np.arange(block_rows)
     k = np.arange(block_cols)
 
-    # Select the elements where j + k ≥ threshold
+    # Select the elements where j + k >= threshold
     mask = np.less.outer(j, -k + threshold)
 
     # Zero them out
