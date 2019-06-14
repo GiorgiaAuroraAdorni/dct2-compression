@@ -69,4 +69,4 @@ def compress(array, threshold):
     # Zero them out
     output = np.where(mask, array, 0)
 
-    return array
+    return output, mask

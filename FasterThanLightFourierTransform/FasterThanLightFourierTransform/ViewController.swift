@@ -18,6 +18,7 @@ class ViewController: NSViewController, NSMenuItemValidation {
     
     @IBOutlet weak var windowSlider: SliderView!
     @IBOutlet weak var cutOffSlider: SliderView!
+    @IBOutlet weak var outputControl: NSSegmentedControl!
     
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var statusLabel: NSTextField!
@@ -30,6 +31,27 @@ class ViewController: NSViewController, NSMenuItemValidation {
     private var compressedImage: NSImage? {
         get { return self.compressedImageWell.image }
         set { self.compressedImageWell.image = newValue; self.updateInterfaceState() }
+    }
+    
+    enum OutputState: Int, PythonConvertible {
+        case dct = 0
+        case mask = 1
+        case compressedDct = 2
+        case compressedImage = 3
+        
+        var pythonObject: PythonObject {
+            switch self {
+            case .dct: return py.OUTPUT_DCT
+            case .mask: return py.OUTPUT_MASK
+            case .compressedDct: return py.OUTPUT_COMPRESSED_DCT
+            case .compressedImage: return py.OUTPUT_COMPRESSED_IMAGE
+            }
+        }
+    }
+    
+    private var outputState: OutputState {
+        get { return OutputState(rawValue: self.outputControl.selectedSegment)! }
+        set { self.outputControl.selectedSegment = newValue.rawValue }
     }
     
     override func viewDidLoad() {
@@ -60,6 +82,8 @@ class ViewController: NSViewController, NSMenuItemValidation {
         // FIXME: this is an ugly hack. how the hell should magnification filters be configured on an NSImageView?
         self.originalImageWell.subviews.first?.layer?.magnificationFilter = .nearest
         self.compressedImageWell.subviews.first?.layer?.magnificationFilter = .nearest
+        
+        self.compressedImageWell.toolTip = self.outputControl.label(forSegment: self.outputControl.selectedSegment)
     }
     
     override func keyDown(with event: NSEvent) {
@@ -114,13 +138,14 @@ class ViewController: NSViewController, NSMenuItemValidation {
         
         let window = self.windowSlider.value
         let cutoff = self.cutOffSlider.value
+        let output = self.outputState
         
         self.statusLabel.stringValue = "Running benchmark…"
         
         DispatchQueue.main.async {
             do {
                 let samples = try benchmark {
-                    _ = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff)
+                    _ = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff, output: output)
                 }
                 
                 summary(samples: samples)
@@ -179,6 +204,7 @@ class ViewController: NSViewController, NSMenuItemValidation {
         
         let window = self.windowSlider.value
         let cutoff = self.cutOffSlider.value
+        let output = self.outputState
         
         self.statusLabel.stringValue = "Processing…"
         
@@ -189,12 +215,13 @@ class ViewController: NSViewController, NSMenuItemValidation {
             
             do {
                 let time = try measure {
-                    compressedImage = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff)
+                    compressedImage = try self.generateCompressedImage(from: image, window: window, cutoff: cutoff, output: output)
                 }
                 
                 status = String(format: "Image has been processed in %.3lf ms.", time)
             } catch {
                 status = "ERROR: \(error.localizedDescription)"
+                print(error)
             }
             
             self.compressedImage = compressedImage
@@ -202,14 +229,14 @@ class ViewController: NSViewController, NSMenuItemValidation {
         }
     }
     
-    private func generateCompressedImage(from image: NSImage, window: Int, cutoff: Int) throws -> NSImage {
+    private func generateCompressedImage(from image: NSImage, window: Int, cutoff: Int, output: OutputState) throws -> NSImage {
         guard let imageArray = image.makeNumpyArray() else {
             throw NSError(domain: "FtlFT", code: 1, userInfo: [
                 NSLocalizedDescriptionKey: "The format of the input image is not supported."
             ])
         }
         
-        let compressed = try py.compress_image.throwing(imageArray, window: window, cutoff: cutoff)
+        let compressed = try py.compress_image.throwing(imageArray, window: window, cutoff: cutoff, output: output)
         
         guard let compressedImage = NSImage(numpy: compressed) else {
             throw NSError(domain: "FtlFT", code: 2, userInfo: [
