@@ -73,8 +73,9 @@ class ImageView: NSImageView, QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     
     // MARK: - QLPreviewPanelDelegate
     
-    func previewPanel(_ panel: QLPreviewPanel!, sourceFrameOnScreenFor item: QLPreviewItem!) -> NSRect {
-        let imageFrame = AVMakeRect(aspectRatio: self.image!.size, insideRect: self.bounds)
+    func previewPanel(_ panel: QLPreviewPanel, sourceFrameOnScreenFor item: QLPreviewItem) -> NSRect {
+        let bounds = self.cell!.drawingRect(forBounds: self.bounds)
+        let imageFrame = AVMakeRect(aspectRatio: self.image!.size, insideRect: bounds)
         
         return self.window!.convertToScreen(self.convert(imageFrame, to: nil))
     }
