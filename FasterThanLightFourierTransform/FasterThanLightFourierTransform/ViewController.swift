@@ -24,7 +24,7 @@ class ViewController: NSViewController, NSMenuItemValidation {
     
     private var originalImage: NSImage? {
         get { return self.originalImageWell.image }
-        set { self.originalImageWell.image = newValue }
+        set { self.originalImageWell.image = newValue; self.updateInterfaceState() }
     }
     
     private var compressedImage: NSImage? {
@@ -56,6 +56,11 @@ class ViewController: NSViewController, NSMenuItemValidation {
         self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
         
         self.saveButton.isEnabled = (self.compressedImage != nil)
+        
+        
+        // FIXME: this is an ugly hack. how the hell should magnification filters be configured on an NSImageView?
+        self.originalImageWell.subviews.first?.layer?.magnificationFilter = .nearest
+        self.compressedImageWell.subviews.first?.layer?.magnificationFilter = .nearest
     }
     
     override func keyDown(with event: NSEvent) {
@@ -82,6 +87,7 @@ class ViewController: NSViewController, NSMenuItemValidation {
     }
     
     @IBAction func userDidDropImage(_ sender: NSImageView) {
+        self.updateInterfaceState()
         self.updateCompressedImage()
     }
     
