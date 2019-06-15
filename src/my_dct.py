@@ -1,44 +1,32 @@
 import numpy as np
-from scipy.fftpack import dctn, dct
 
 
-def my_dct(vec):
-    size = vec.size
-    c = np.zeros(shape=size)
+def dct(array, axis=-1):
+    n = array.shape[axis]
 
-    # to avoid iteration
-    alpha = np.pad([1 / np.sqrt(size)], (0, size - 1), 'constant', constant_values=(np.sqrt(2 / size)))
+    i = k = np.arange(n)
 
-    for j in range(size):
+    foo = (2*i + 1) / (2*n)
+    bar = k * np.pi
+    asd = np.multiply.outer(foo, bar)
 
-        # alternatively:
-        # alpha = 1 if j != 0 else np.sqrt(0.5)
-        # alpha = np.sqrt(2 / size) * alpha
+    alpha = np.where(k == 0, 1 / np.sqrt(n), np.sqrt(2 / n))
+    basis = alpha * np.cos(asd)
 
-        # another alternative:
-        # alpha = (1.0 / size)**(1.0 / 2.0)
-        # alpha = (2.0 / size) ** (1.0 / 2.0)
+    dct = np.tensordot(array, basis, axes=(axis, 0))
 
-        sum = 0.0
+    # np.tensordot
+    baz = np.moveaxis(dct, -1, axis)
 
-        for index, val in np.ndenumerate(vec):
-            i = index[0]
-            sum += val * np.cos(np.pi * j * (2 * i + 1) / (2 * size))
-
-            c[j] = alpha[j] * sum
-            # c[j] = alpha * sum
-
-    return c
+    return baz
 
 
-def dct1(c):
-    first_dct = np.apply_along_axis(my_dct, 1, c)
+def dctn(array, axes=None):
+    # Axes along which the DCT is computed. The default is over all axes.
+    if axes is None:
+        axes = range(array.ndim)
 
-    return first_dct
+    for axis in axes:
+        array = dct(array, axis=axis)
 
-
-def dct2(matrix):
-    # Applies DCT1 on the first axises and after to the second (transpose)
-    second_dct = np.apply_along_axis(my_dct, 1, np.apply_along_axis(my_dct, 0, matrix))
-
-    return second_dct
+    return array
