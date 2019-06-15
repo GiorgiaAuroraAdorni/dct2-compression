@@ -11,12 +11,14 @@ def comparison_result(x, y_set, labels, title, filename):
     y_square = (x ** 2) * np.log(x) / 100000000
     y_cube = (x ** 3) * np.log(x) / 100000000000
 
-    plt.plot(x, y, '--', linewidth=3, markersize=8, label="n")
-    plt.plot(x, y_square, '--', linewidth=3, markersize=8, label="n^2")
-    plt.plot(x, y_cube, '--', linewidth=3, markersize=8, label="n^3")
+    plt.plot(x, y, '--', linewidth=3, markersize=8, label="n*log(n)")
+    plt.plot(x, y_square, '--', linewidth=3, markersize=8, label="n^2*log(n)")
+    plt.plot(x, y_cube, '--', linewidth=3, markersize=8, label="n^3*log(n)")
 
     plt.yscale('log')
 
+    m = min(y_set[0][0], y_set[1][0])
+    plt.ylim(bottom=m/10)
     plt.xlabel("size", fontsize=12)
     plt.ylabel("time (sec)", fontsize=12)
 
