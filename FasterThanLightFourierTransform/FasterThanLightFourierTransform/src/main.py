@@ -8,6 +8,7 @@ OUTPUT_MASK = 1
 OUTPUT_COMPRESSED_DCT = 2
 OUTPUT_COMPRESSED_IMAGE = 3
 
+
 def compress_image(image, window, cutoff, output=OUTPUT_COMPRESSED_IMAGE):
     gray = util.im2gray(image)
 
@@ -33,6 +34,8 @@ def compress_image(image, window, cutoff, output=OUTPUT_COMPRESSED_IMAGE):
     elif output == OUTPUT_COMPRESSED_IMAGE:
         out = idct
         from_range = to_range # No interpolation needed, just clipping
+    else:
+        raise ValueError("Invalid value for 'output' parameter.")
     
     normalized = np.interp(out, from_range, to_range)
     converted = np.round(normalized).astype(image.dtype)
