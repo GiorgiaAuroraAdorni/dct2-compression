@@ -12,7 +12,7 @@ block = np.array([[231, 32, 233, 161, 24, 71, 140, 245],
                   [193, 70, 174, 167, 41, 30, 127, 245],
                   [87, 149, 57, 192, 65, 129, 178, 228]])
 
-block = np.random.randint(0, 255, size=(4, 5, 6))
+# block = np.random.randint(0, 255, size=(4, 5, 6))
 
 for axis in range(block.ndim):
     original = dct(block, axis=axis, norm="ortho")

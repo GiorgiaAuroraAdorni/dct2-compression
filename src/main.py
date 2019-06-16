@@ -2,7 +2,7 @@ from scipy.fftpack import dctn
 import numpy as np
 import time
 
-from my_plot import comparison_result
+from visualisation import comparison_result
 import my_dct as my
 
 iterations = 10

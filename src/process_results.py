@@ -1,5 +1,5 @@
 from util import get_file, extract_columns, reshape_columns
-from my_plot import comparison_result
+from visualisation import comparison_result
 
 import numpy as np
 
