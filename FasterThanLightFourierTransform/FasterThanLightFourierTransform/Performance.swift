@@ -61,6 +61,7 @@ func summary(samples: [Double]) {
     
     plt.subplot(1, 2, 1)
     plt.plot(samples)
+    plt.ylim(0)
     plt.title("Plot")
     plt.xlabel("Samples")
     plt.ylabel("Time (ms)")
