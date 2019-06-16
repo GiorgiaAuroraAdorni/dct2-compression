@@ -67,7 +67,6 @@ class ViewController: NSViewController, NSMenuItemValidation {
         
         self.windowSlider.minValue = 2
         self.windowSlider.value = 8
-        self.windowSlider.maxValue = 128
         
         self.cutOffSlider.minValue = 0
         
@@ -75,6 +74,12 @@ class ViewController: NSViewController, NSMenuItemValidation {
     }
 
     private func updateInterfaceState() {
+        if let size = self.originalImage?.size {
+            self.windowSlider.maxValue = Int(min(size.height, size.width))
+        } else {
+            self.windowSlider.maxValue = 128
+        }
+        
         self.cutOffSlider.maxValue = 2 * self.windowSlider.value - 2
         
         self.saveButton.isEnabled = (self.compressedImage != nil)
