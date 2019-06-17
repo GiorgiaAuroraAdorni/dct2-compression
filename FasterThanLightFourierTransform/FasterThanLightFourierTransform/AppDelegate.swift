@@ -11,6 +11,10 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var mainWindow: NSWindow {
+        return NSApp.windows.first!
+    }
+    
     override init() {
         // Force the bridging code to load Python 3
         PythonLibrary.useVersion(3)
@@ -30,6 +34,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
-
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        guard !flag else {
+            // Keep default behavior
+            return true
+        }
+        
+        self.mainWindow.makeKeyAndOrderFront(self)
+        
+        return false
+    }
 }
 
