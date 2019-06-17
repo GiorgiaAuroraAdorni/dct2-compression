@@ -8,8 +8,6 @@
 
 import Foundation
 
-private let plt = Python.import("matplotlib.pyplot")
-
 func measure(block: () throws -> ()) rethrows -> Double {
     let start = DispatchTime.now()
     try block()
@@ -50,10 +48,7 @@ func summary(samples: [Double]) {
         Execution times over %d samples:
         mean %.3lf ms, stdev %.3lf ms
     """, samples.count, mean, stdev)
-    
-    // Enable interactive mode
-    plt.ion()
-    
+        
     plt.figure(1)
     plt.clf()
     
