@@ -24,4 +24,4 @@ size = np.append(reshaped_columns["n"][:, 0], np.array([n]))
 my_mean.append(np.mean(my))
 orig_mean.append(np.mean(orig))
 
-comparison_result(size, [my_mean, orig_mean], ["my", "orig"], "DCT2", "results/prova_iteration.pdf")
+comparison_result(size, [my_mean, orig_mean], ["my_dctn", "orig_dctn"], "DCT2", "results/presentation.pdf")
