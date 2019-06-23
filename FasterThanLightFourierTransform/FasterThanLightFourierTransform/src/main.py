@@ -27,7 +27,7 @@ def compress_image(image, window, cutoff, output=OUTPUT_COMPRESSED_IMAGE):
         from_range = (out.min(), out.max())
     elif output == OUTPUT_MASK:
         out = mask
-        from_range = (out.min(), out.max()) #FIXME: min == max should map to 0
+        from_range = (out.min(), out.max())
     elif output == OUTPUT_COMPRESSED_DCT:
         out = compressed
         from_range = (out.min(), out.max())
@@ -36,6 +36,10 @@ def compress_image(image, window, cutoff, output=OUTPUT_COMPRESSED_IMAGE):
         from_range = to_range # No interpolation needed, just clipping
     else:
         raise ValueError("Invalid value for 'output' parameter.")
+
+    # If min == max, min should map to 0
+    if from_range[0] == from_range[1]:
+        from_range = (from_range[0], from_range[1] + 1)
     
     normalized = np.interp(out, from_range, to_range)
     converted = np.round(normalized).astype(image.dtype)
