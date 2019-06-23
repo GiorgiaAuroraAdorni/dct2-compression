@@ -19,11 +19,11 @@ def comparison_result(x, y_set, labels, title, filename):
     # plt.plot(x, y_cube, '--', linewidth=3, markersize=8, label="n^3")
 
     plt.yscale('log')
-    plt.xscale('log')
+    plt.xscale('log', basex=2)
 
     m = min(y_set[0][0], y_set[1][0])
     plt.ylim(bottom=m/10)
-    plt.xlabel("size", fontsize=12)
+    plt.xlabel("input size", fontsize=12)
     plt.ylabel("time (sec)", fontsize=12)
 
     plt.title(title, weight='bold', fontsize=14, y=1.05)
